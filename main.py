@@ -13,7 +13,7 @@ def split(text:str) -> list[str]:
  i=""
  j=0
  while text[j] != "\0":
-  if text[j] in " \r\n\t,":
+  if text[j] in " \r\n\t":
    res.append(i)
    i=""
   else:
