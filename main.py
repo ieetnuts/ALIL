@@ -22,10 +22,10 @@ def split(text:str) -> list[str]:
  if i != "": res.append(i)
  return res
 
-if len(argv)>1 and argv[1].endswith(".s"):
+if len(argv)>1 and argv[1].endswith(".alil"):
  code=open(argv[1],"r").read()
 else:
- raise Exception("Usage: %s file.s" % argv[0])
+ raise Exception("Usage: %s file.alil" % argv[0])
 p=split(code)
 iptr=0
 sptr=0
