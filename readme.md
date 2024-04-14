@@ -8,7 +8,7 @@ The language is like assembly but it can be on one line.
 |keyword|usage|arguments|
 |----|----|---|
 |`st[a x y z]`|stores a number to `[a x y z]`|register \| number|
-|`ld[a x y z]`|load a from `a` to a register|a register|
+|`ld[a x y z]`|load a from `[a x y z]` to a register|a register|
 |`str`|moves a number to a register|a register and a number|
 |`cmp`|compares `a` to a number|a number|
 |`j[mp eq ne lt le gt ge]`|jumps to a label/line (with additional condition)|a label|
