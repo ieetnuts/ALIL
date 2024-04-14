@@ -19,16 +19,27 @@ def split(text:str) -> list[str]:
   else:
    i+=text[j]
   j+=1
- if i != "": res.append(i)
+ if i != "":
+  res.append(i)
  return res
 
+p=[]
 if len(argv)>1 and argv[1].endswith(".alil"):
  code=open(argv[1],"r").read()
+ if len(argv)>2:
+  for i in range(2,len(argv)):
+   if argv[i].endswith(".alil"):
+    for j in split(open(argv[i],"r").read()):
+     p.append(j)
+   else:
+    raise Exception("Usage: %s [files]" % argv[0])
 else:
- raise Exception("Usage: %s file.alil" % argv[0])
-p=split(code)
+ raise Exception("Usage: %s [files]" % argv[0])
+
+for j in split(open(argv[1],"r").read()):
+ p.append(j)
 iptr=0
-sptr=0
+rptr=0
 a=0
 x=0
 y=0
@@ -39,6 +50,7 @@ proc={}
 cmp=["0","0"]
 print(p)
 while iptr < len(p):
+ #print(a,x,y,z)
  if p[iptr].endswith(":"):
   proc[p[iptr][:-1]]=iptr
   iptr+=1
@@ -112,54 +124,51 @@ while iptr < len(p):
    if a < 0:
     a=255
   elif p[iptr] == "cmp":
+   cmp=[0,0]
    if a == int(p[iptr+1]):
     cmp[0]=1
-   else:
-    cmp[0]=0
-   if a > int(p[iptr+1]):
+   elif a > int(p[iptr+1]):
     cmp[1]=1
    elif a < int(p[iptr+1]):
     cmp[1]=2
-   else:
-    cmp[1]=0
    iptr+1
   elif p[iptr] == "jmp":
    iptr+=1
    if p[iptr] in list(proc.keys()):
-    sptr=iptr
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jeq":
    iptr+=1
    if cmp[0]==1:
-    sptr=iptr
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jlt":
    iptr+=1
    if cmp[1]==2:
-    sptr=iptr
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jgt":
    iptr+=1
    if cmp[1]==1:
-    sptr=iptr
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jle":
    iptr+=1
-   if cmp[0]==1 or cmp[1]==1:
-    sptr=iptr
+   if cmp[0]==1 or cmp[1]==2:
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jge":
    iptr+=1
-   if cmp[0]==1 or cmp[1]==2:
-    sptr=iptr
+   if cmp[0]==1 or cmp[1]==1:
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "jne":
    iptr+=1
    if cmp[0]!=1:
-    sptr=iptr
+    rptr=iptr
     iptr=proc[p[iptr]]
   elif p[iptr] == "ret":
-   iptr=sptr
-   sptr=0
+   iptr=rptr
+   rptr=0
  iptr+=1
- #sleep(0.5)
+ #sleep(1/(2**7))
