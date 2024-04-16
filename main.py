@@ -1,5 +1,4 @@
 from sys import argv
-#from time import sleep
 
 def initmem(memlen:int) -> dict[int,int]:
  mem={}
@@ -48,9 +47,7 @@ memlen=32
 mem=initmem(memlen)
 proc={}
 cmp=["0","0"]
-print(p)
 while iptr < len(p):
- #print(a,x,y,z)
  if p[iptr].endswith(":"):
   proc[p[iptr][:-1]]=iptr
   iptr+=1
@@ -171,4 +168,3 @@ while iptr < len(p):
    iptr=rptr
    rptr=0
  iptr+=1
- #sleep(1/(2**7))
